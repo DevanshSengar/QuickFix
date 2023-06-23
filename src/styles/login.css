@@ -1,0 +1,41 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  color: white;
+  max-width: 38rem;
+  margin: 19vh auto;
+  padding: 2.5rem 4.5rem;
+  border-radius: 4rem;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.login-button {
+  background-color: #19c37d;
+  width: 100%;
+}
+
+.login-group {
+  margin: 1.5rem;
+  width: 100%;
+}
+
+.forgot {
+  color: white;
+  font-size: small;
+  padding: 0.7rem 0 0 0.4rem;
+  cursor: pointer;
+}
+
+.selection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectedUserLogin {
+  background: #425fc6;
+}

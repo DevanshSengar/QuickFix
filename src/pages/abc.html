@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>45-Degree Middle Sides Example</title>
+    <style>
+      .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .rectangle {
+        position: relative;
+        width: 200px;
+        height: 100px;
+        border: 2px solid #000;
+      }
+
+      .middle-side {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .middle-side::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(45deg, transparent 0%, #000 50%);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>45-Degree Middle Sides Example</h2>
+    <div class="flex-container">
+      <div class="rectangle middle-side">
+        <!-- Content for the left component -->
+      </div>
+      <div class="rectangle middle-side">
+        <!-- Content for the right component -->
+      </div>
+    </div>
+  </body>
+</html>

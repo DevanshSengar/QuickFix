@@ -1,0 +1,43 @@
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  color: white;
+  max-width: 40rem;
+  margin: 10vh auto;
+  padding: 2.8rem 4.5rem;
+  border-radius: 4rem;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.signup-button {
+  background-color: #19c37d;
+  width: 100%;
+}
+
+.signup-group {
+  margin: 1.1rem;
+  width: 100%;
+}
+
+.selection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectedUserSignup {
+  background: #425fc6;
+}
+
+.dropdown {
+  color: white;
+  background: #425fc6;
+  padding: 0.9rem 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3rem;
+  outline: none;
+}

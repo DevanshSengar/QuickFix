@@ -1,0 +1,105 @@
+.container {
+  height: 60rem;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  color: white;
+  height: 58rem;
+  width: 22%;
+  margin-top: 3.2rem;
+  padding: 4rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.com {
+  color: white;
+  height: 58rem;
+  width: 72%;
+  margin-top: 3.2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.com-container {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  /* background-color: rgba(254, 254, 254, 0.3); */
+}
+
+.com-complaints {
+  overflow: auto;
+  margin: 2rem 0;
+  height: 79%;
+  /* position: absolute; */
+}
+
+.com-complaints::-webkit-scrollbar {
+  width: 0.5rem;
+  border-radius: 5rem;
+}
+
+.com-complaints::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border-radius: 5rem;
+}
+
+.com-complaints::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  border-radius: 5rem;
+}
+
+.slanted-border {
+  width: 49%;
+  margin: 0.3rem;
+  position: relative;
+  transform: skewX(-45deg);
+}
+
+.slanted-border p {
+  transform: skewX(+45deg);
+}
+
+.rlogo,
+.clogo {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.com-component {
+  height: 10rem;
+  background-color: #303030;
+  margin: 0 1.2rem 1.2rem 1rem;
+  border-radius: 0.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+label {
+  padding: 0.35rem;
+  padding-left: 1rem;
+  display: flex;
+}
+
+label p {
+  padding-left: 0.5rem;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+}
