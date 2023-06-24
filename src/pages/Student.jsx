@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 import rlogo from "../assets/recentLOGO.png";
 import clogo from "../assets/newComLOGO.png";
 import plogo from "../assets/profileLOGO.png";
-import Complaint from "../components/Complaint";
+import Complaint from "../components/Complaint.jsx";
 
 import "../styles/student.css";
 

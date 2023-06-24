@@ -77,13 +77,6 @@
   margin-right: 0.5rem;
 }
 
-.com-component {
-  height: 10rem;
-  background-color: #303030;
-  margin: 0 1.2rem 1.2rem 1rem;
-  border-radius: 0.5rem;
-}
-
 form {
   display: flex;
   flex-direction: column;

@@ -7,8 +7,11 @@ export default function Complaint() {
       <div className="comp-left">
         <div className="comp-state"></div>
         <div className="comp-description">
-          <h1 className="comp-title"></h1>
-          <p className="comp-para"></p>
+          <h1 className="comp-title">Title</h1>
+          <p className="comp-para">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe,
+            quas.
+          </p>
         </div>
       </div>
       <div className="comp-right">
