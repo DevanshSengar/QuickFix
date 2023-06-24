@@ -4,15 +4,9 @@ import logo from "../assets/logo.png";
 import rlogo from "../assets/recentLOGO.png";
 import clogo from "../assets/newComLOGO.png";
 import plogo from "../assets/profileLOGO.png";
-import "../styles/student.css";
+import Complaint from "../components/Complaint";
 
-const Complaint = () => {
-  return (
-    <div className="com-component">
-      <p>Complaint</p>
-    </div>
-  );
-};
+import "../styles/student.css";
 
 const Student = () => {
   const [selectedButton, setSelectedButton] = useState(1);
@@ -20,14 +14,6 @@ const Student = () => {
   const handleButtonClick = (buttonId) => {
     setSelectedButton(buttonId);
   };
-
-  // const handleMouseOver = (event) => {
-  //   event.target.style.backgroundColor = "#19c37d";
-  // };
-
-  // const handleMouseOut = (event) => {
-  //   event.target.style.backgroundColor = "#18ae70";
-  // };
 
   return (
     <div>
@@ -61,31 +47,6 @@ const Student = () => {
               </label>
             </form>
           </div>
-
-          {/* <div>
-            <h2 style={{ fontSize: "25px", fontWeight: 500 }}>Location</h2>
-            <form>
-              <label>
-                <input type="checkbox" name="item1" value="Item 1" />
-                <p>BH-1</p>
-              </label>
-
-              <label>
-                <input type="checkbox" name="item2" value="Item 2" />
-                <p>BH-2</p>
-              </label>
-
-              <label>
-                <input type="checkbox" name="item3" value="Item 3" />
-                <p>BH-3</p>
-              </label>
-
-              <label>
-                <input type="checkbox" name="item4" value="Item 4" />
-                <p>GH</p>
-              </label>
-            </form>
-          </div> */}
 
           <div>
             <h2 style={{ fontSize: "25px", fontWeight: 500 }}>State</h2>
@@ -161,8 +122,6 @@ const Student = () => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  // onMouseOver={handleMouseOver}
-                  // onMouseOut={handleMouseOut}
                 >
                   <img src={clogo} alt="Logo" className="clogo" />
                   <p>New Complaint</p>
