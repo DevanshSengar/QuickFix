@@ -23,13 +23,7 @@
   width: 100%;
 }
 
-.selection {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.selectedUserSignup {
+.selectUser {
   background: #425fc6;
 }
 
@@ -40,4 +34,13 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3rem;
   outline: none;
+}
+
+.user-block,
+.admin-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
