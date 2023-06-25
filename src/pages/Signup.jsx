@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/signup.css";
+import Login from "../pages/Login";
 
 const Signup = () => {
   const [student, setStudent] = useState(true);
@@ -44,57 +45,54 @@ const Signup = () => {
     }));
   };
 
-  // console.log(formData);
-  // const [location, setLocation] = useState("");
-  // const handleLocationChange = (e) => {
-  //   setLocation(e.target.value);
-  // };
-
-  // const [isRegister, setIsRegister] = useState(false);
-  // const [error, setError] = useState("");
-  // const baseURL = "http://192.168.69.167:8000";
-
+  const [error, setError] = useState("");
+  const baseURL = "http://192.168.69.167:8000";
+  const [isRegister, setIsRegister] = useState(false);
   // const history = useHistory();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   if (!isEmail(email)) {
-  //     setError("Invalid email");
-  //     return;
-  //   }
-  //   if (!isLength(password, { min: 6 })) {
-  //     setError("Password must be at least 6 characters");
-  //     return;
-  //   }
-  //   if (password !== password2) {
-  //     setError("Passwords do not match");
-  //     return;
-  //   }
-  //   try {
-  //     const res = await fetch(`${baseURL}/student`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ name, email, hostel, room, password }),
-  //     });
-  //     // console.log(res.data);
-  //     const json = await res.json();
-  //     console.log(json);
-  //     if (res.status === 200) {
-  //       setIsRegister(true);
-  //     }
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    // if (!isEmail(formData.email)) {
+    //   setError("Invalid email");
+    //   return;
+    // }
+    // if (!isLength(formData.password, { min: 6 })) {
+    //   setError("Password must be at least 6 characters");
+    //   return;
+    // }
+    if (formData.password !== formData.password2) {
+      console.log("Passwords do not match");
+      return;
+    }
+    try {
+      const res = await fetch(`${baseURL}/student`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(res.data);
+      const json = await res.json();
+      console.log(json);
+      if (res.status === 201) {
+        setIsRegister(true);
+        console.log("response recieved");
+      } else if (res.status === 409) {
+        setIsRegister(true);
+        console.log("already registered");
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-  // if (isRegister) {
-  //   setTimeout(() => {
-  //     history.push("/login");
-  //   }, 1000);
-  // }
+  if (isRegister) {
+    setTimeout(() => {
+      <Login />;
+    }, 2000);
+  }
 
   return (
     <div>
@@ -208,8 +206,12 @@ const Signup = () => {
               />
             </div>
             <div className="signup-group">
-              <Link to="">
-                <button className="signup-button" type="submit">
+              <Link to="/user-student">
+                <button
+                  onClick={handleSubmit}
+                  className="signup-button"
+                  type="submit"
+                >
                   Sign Up
                 </button>
               </Link>

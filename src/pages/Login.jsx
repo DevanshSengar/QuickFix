@@ -26,7 +26,7 @@ const Login = () => {
       </nav>
       {/* Navigation-bar */}
 
-      <div className="login-container">
+      <form className="login-container">
         <div className="selection login-group">
           <Link to="">
             <button
@@ -64,7 +64,7 @@ const Login = () => {
           <Link to="">
             <button
               onClick={() => {
-                alert("Login successful");
+                // alert("Login successful");
               }}
               className="login-button"
               type="submit"
@@ -81,7 +81,7 @@ const Login = () => {
             Forgot Password?
           </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
