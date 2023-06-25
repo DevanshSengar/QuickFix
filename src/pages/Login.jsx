@@ -4,11 +4,17 @@ import logo from "../assets/logo.png";
 import "../styles/login.css";
 
 const Login = () => {
-  const [selectedButton, setSelectedButton] = useState(null);
+  const [student, setStudent] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
-  const handleButtonClick = (buttonId) => {
-    setSelectedButton(buttonId);
-  };
+  function handleStudent() {
+    setStudent(true);
+    setAdmin(false);
+  }
+  function handleAdmin() {
+    setAdmin(true);
+    setStudent(false);
+  }
 
   return (
     <div>
@@ -30,8 +36,8 @@ const Login = () => {
         <div className="selection login-group">
           <Link to="">
             <button
-              onClick={() => handleButtonClick(1)}
-              className={selectedButton === 1 ? "selectedUserLogin" : ""}
+              onClick={handleAdmin}
+              className={admin ? "selectedUserLogin" : ""}
             >
               Admin
             </button>
@@ -39,8 +45,8 @@ const Login = () => {
 
           <Link to="">
             <button
-              onClick={() => handleButtonClick(2)}
-              className={selectedButton === 2 ? "selectedUserLogin" : ""}
+              onClick={handleStudent}
+              className={student ? "selectedUserLogin" : ""}
             >
               Student
             </button>
