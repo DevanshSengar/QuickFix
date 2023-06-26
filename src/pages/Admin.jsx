@@ -1,17 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 import "../styles/admin.css";
+import ProfileNav from "../components/ProfileNav";
 
 const Admin = () => {
   return (
     <div>
       {/* Navigation-bar */}
-      <nav className="nav-bar">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="logo" />
-        </Link>
-      </nav>
+      <ProfileNav />
       {/* Navigation-bar */}
     </div>
   );

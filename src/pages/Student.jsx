@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 import rlogo from "../assets/recentLOGO.png";
 import clogo from "../assets/newComLOGO.png";
-import plogo from "../assets/profileLOGO.png";
 import Complaint from "../components/Complaint.jsx";
-
+import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/student.css";
 
 const Student = () => {
@@ -18,12 +15,7 @@ const Student = () => {
   return (
     <div>
       {/* Navigation-bar */}
-      <nav className="nav-bar">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="logo" />
-        </Link>
-        <img src={plogo} alt="Logo" className="plogo" />
-      </nav>
+      <ProfileNav />
       {/* Navigation-bar */}
 
       <div className="container">

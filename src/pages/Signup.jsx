@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
-import "../styles/signup.css";
 import { toast } from "react-toastify";
-// import Login from "../pages/Login";
+import LoginNav from "../components/LoginNav.jsx";
+import "../styles/signup.css";
 
 const Signup = () => {
   const [student, setStudent] = useState(true);
@@ -28,70 +27,77 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const IsValidate = () => {
-    let isproceed = true;
-    let errormessage = "Please enter the value in ";
-    if (room === null || room === "") {
-      isproceed = false;
-      errormessage += " Hostel";
+    if (
+      name === null ||
+      name === "" ||
+      email === null ||
+      email === "" ||
+      hostel === null ||
+      hostel === "" ||
+      (student && (room === null || room === "")) ||
+      password === null ||
+      password === ""
+    ) {
+      toast.warning("Please fill all the credentials.");
+      return false;
     }
-    if (hostel === null || hostel === "") {
-      isproceed = false;
-      errormessage += " Hostel";
+    if (student && (room < 0 || room > 400)) {
+      toast.warning("Please enter a valid room.");
+      return false;
     }
-    if (name === null || name === "") {
-      isproceed = false;
-      errormessage += " Fullname";
+    if (password !== password2) {
+      setPassword("");
+      setPassword2("");
+      toast.warning("Passwords do not match");
+      return false;
     }
-    if (password === null || password === "") {
-      isproceed = false;
-      errormessage += " Password";
-    }
-    if (email === null || email === "") {
-      isproceed = false;
-      errormessage += " Email";
-    }
-
-    if (!isproceed) {
-      toast.warning(errormessage);
-    } else if (password !== password2) {
-      isproceed = false;
-      toast.warning("Password is not Confirmed");
-    }
-    // else {
-    //   if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-    //   } else {
-    //     isproceed = false;
-    //     toast.warning("Please enter the valid email");
-    //   }
-    // }
-    return isproceed;
+    return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (student) {
       const formData = { name, email, hostel, room, password };
       if (IsValidate()) {
-        console.log(formData);
-        fetch("http://192.168.69.167:8000/student", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(formData),
-        })
-          .then((res) => {
-            console.log(res);
-            toast.success("Registered successfully.");
-            navigate("/login");
-          })
-          .catch((err) => {
-            toast.error("Failed :" + err.message);
+        // console.log(formData);
+        try {
+          const response = await fetch("http://192.168.69.167:8000/student", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(formData),
           });
+          console.log(1, response);
+          const result = await response.json();
+          console.log(2, result);
+
+          if (response.status === 201) {
+            toast.success("Registered successfully.");
+            navigate("/emailVerification");
+          }
+          // result
+          //   .then((res) => {
+          //     toast.error(res.detail);
+          //   })
+          //   .catch((error) => {
+          //     console.error(error);
+          //   });
+          if (response.status === 422) {
+            toast.error("Use Institute Email Only");
+            return;
+          }
+          if (response.status === 409) {
+            toast.error(result.detail);
+            return;
+          }
+        } catch (err) {
+          toast.error("Failed :" + err.message);
+        }
       }
     }
     if (admin) {
       const formData = { name, email, hostel, password };
       if (IsValidate()) {
-        console.log(formData);
+        // console.log(formData);
         fetch("http://192.168.69.167:8000/admin", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -100,29 +106,19 @@ const Signup = () => {
           .then((res) => {
             console.log(res);
             toast.success("Registered successfully.");
-            navigate("/login");
+            navigate("/emailVerification");
           })
           .catch((err) => {
             toast.error("Failed :" + err.message);
           });
       }
     }
-    // console.log(formData);
   };
 
   return (
     <div>
       {/* Navigation-bar */}
-      <nav className="nav-bar">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="logo" />
-        </Link>
-        <div className="nav-buttons">
-          <Link to="/login">
-            <button className="nav-login">Log In</button>
-          </Link>
-        </div>
-      </nav>
+      <LoginNav />
       {/* Navigation-bar */}
 
       <form className="signup-container">
@@ -230,15 +226,13 @@ const Signup = () => {
             </div>
 
             <div className="signup-group">
-              <Link to="">
-                <button
-                  className="signup-button"
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  Sign Up
-                </button>
-              </Link>
+              <button
+                className="signup-button"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         )}
@@ -310,15 +304,13 @@ const Signup = () => {
             </div>
 
             <div className="signup-group">
-              <Link to="">
-                <button
-                  className="signup-button"
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  Sign Up
-                </button>
-              </Link>
+              <button
+                className="signup-button"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         )}

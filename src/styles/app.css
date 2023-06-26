@@ -64,12 +64,11 @@ button {
   border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
-  transition: 0s;
 }
 
-button:active {
-  transform: scale(0.99);
-}
+/* button:active {
+  transform: scale(0.98);
+} */
 
 input[type="number"],
 input[type="text"],
