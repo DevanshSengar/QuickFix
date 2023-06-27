@@ -18,6 +18,10 @@
   width: 100%;
 }
 
+.login-button:active {
+  transform: scale(0.98);
+}
+
 .login-group {
   margin: 1.5rem;
   width: 100%;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/signup.css";
 import { toast } from "react-toastify";
 import LoginNav from "../components/LoginNav.jsx";
-import "../styles/signup.css";
 
 const Signup = () => {
   const [student, setStudent] = useState(true);
@@ -12,10 +12,13 @@ const Signup = () => {
     setStudent(true);
     setAdmin(false);
   }
+
   function handleAdmin() {
     setAdmin(true);
     setStudent(false);
   }
+
+  const usenavigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,8 +26,6 @@ const Signup = () => {
   const [room, setRoom] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-
-  const navigate = useNavigate();
 
   const IsValidate = () => {
     if (
@@ -44,6 +45,10 @@ const Signup = () => {
     if (student && (room < 0 || room > 400)) {
       toast.warning("Please enter a valid room.");
       return false;
+    }
+    if (password.length < 6) {
+      toast.warning("Password must be at least 6 characters");
+      return;
     }
     if (password !== password2) {
       setPassword("");
@@ -71,16 +76,11 @@ const Signup = () => {
           console.log(2, result);
 
           if (response.status === 201) {
+            localStorage.setItem("email", email);
             toast.success("Registered successfully.");
-            navigate("/emailVerification");
+            usenavigate("/emailVerification");
+            return;
           }
-          // result
-          //   .then((res) => {
-          //     toast.error(res.detail);
-          //   })
-          //   .catch((error) => {
-          //     console.error(error);
-          //   });
           if (response.status === 422) {
             toast.error("Use Institute Email Only");
             return;
@@ -90,29 +90,42 @@ const Signup = () => {
             return;
           }
         } catch (err) {
-          toast.error("Failed :" + err.message);
+          console.log(err);
+          toast.error("Failed :" + err);
         }
       }
     }
-    if (admin) {
-      const formData = { name, email, hostel, password };
-      if (IsValidate()) {
-        // console.log(formData);
-        fetch("http://192.168.69.167:8000/admin", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(formData),
-        })
-          .then((res) => {
-            console.log(res);
-            toast.success("Registered successfully.");
-            navigate("/emailVerification");
-          })
-          .catch((err) => {
-            toast.error("Failed :" + err.message);
-          });
-      }
-    }
+    // if (admin) {
+    //   const formData = { name, email, hostel, password };
+    //   if (IsValidate()) {
+    //     // console.log(formData);
+    //     try {
+    //       const response = await fetch("http://192.168.69.167:8000/student", {
+    //         method: "POST",
+    //         headers: { "content-type": "application/json" },
+    //         body: JSON.stringify(formData),
+    //       });
+    //       console.log(1, response);
+    //       const result = await response.json();
+    //       console.log(2, result);
+    //       if (response.status === 201) {
+    //         toast.success("Registered successfully.");
+    //         navigate("/emailVerification");
+    //       }
+    //       if (response.status === 422) {
+    //         toast.error("Use Institute Email Only");
+    //         return;
+    //       }
+    //       if (response.status === 409) {
+    //         toast.error(result.detail);
+    //         return;
+    //       }
+    //     } catch (err) {
+    //       console.log(err);
+    //       toast.error("Failed :" + err);
+    //     }
+    //   }
+    // }
   };
 
   return (

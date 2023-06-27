@@ -18,6 +18,10 @@
   width: 100%;
 }
 
+.signup-button:active {
+  transform: scale(0.98);
+}
+
 .signup-group {
   margin: 1.1rem;
   width: 100%;

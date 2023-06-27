@@ -10,6 +10,9 @@
 
 :root {
   font-size: 62.5%;
+  --toastify-color-success: #19c37d !important;
+  --toastify-color-warning: #425fc6 !important;
+  --toastify-color-error: #c31919 !important;
 }
 
 .bg-image {
@@ -65,10 +68,6 @@ button {
   cursor: pointer;
   font-weight: 500;
 }
-
-/* button:active {
-  transform: scale(0.98);
-} */
 
 input[type="number"],
 input[type="text"],

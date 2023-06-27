@@ -11,20 +11,22 @@ import Admin from "./pages/Admin";
 import EmailVerify from "./pages/EmailVerify";
 
 function App() {
+  // token store
   return (
     <div className="bg-image">
       <ToastContainer
+        style={{ fontSize: "1.5rem", maxWidth: "50vw" }}
         theme="dark"
         pauseOnHover
-        position="top-center"
+        position="bottom-right"
       ></ToastContainer>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/user-student" element={<Student />} />
-          <Route path="/user-admin" element={<Admin />} />
+          <Route path="/student/:id" element={<Student />} />
+          <Route path="/admin/:id" element={<Admin />} />
           <Route path="/emailVerification" element={<EmailVerify />} />
 
           <Route

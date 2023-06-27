@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import "../styles/login.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 import { toast } from "react-toastify";
 import SignupNav from "../components/SignupNav.jsx";
 
@@ -16,6 +16,7 @@ const Login = () => {
     setAdmin(false);
     setType("student");
   }
+
   function handleAdmin() {
     setAdmin(true);
     setStudent(false);
@@ -23,10 +24,6 @@ const Login = () => {
   }
 
   const usenavigate = useNavigate();
-
-  useEffect(() => {
-    sessionStorage.clear();
-  }, []);
 
   const validate = () => {
     let result = true;
@@ -41,38 +38,57 @@ const Login = () => {
     return result;
   };
 
-  const proceedLogin = (e) => {
+  const proceedLogin = async (e) => {
     e.preventDefault();
     if (validate()) {
-      let inputobj = { email: email, password: password, type: type };
-      console.log(inputobj);
-
-      fetch("http://192.168.69.167:8000/login", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(inputobj),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((resp) => {
-          console.log(resp);
-          if (Object.keys(resp).length === 0) {
-            toast.error("Login failed, invalid credentials");
-          } else {
-            toast.success("Login Successful");
-            sessionStorage.setItem("email", email);
-            sessionStorage.setItem("jwttoken", resp.jwtToken);
-            if (student) {
-              usenavigate("/user-student");
-            } else {
-              usenavigate("/user-admin");
-            }
-          }
-        })
-        .catch((err) => {
-          toast.error("Login Failed due to :" + err.message);
+      let inputObj = { email: email, password: password, type: type };
+      try {
+        const postResponse = await fetch("http://192.168.69.167:8000/login", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(inputObj),
         });
+        console.log(1, postResponse);
+        const json = await postResponse.json();
+        console.log(2, json);
+
+        if (postResponse.status === 200) {
+          toast.success("Login Successful");
+          const jwtToken = json.access_token;
+          localStorage.setItem("jwtToken", jwtToken);
+
+          const getResponse = await fetch(
+            "http://192.168.69.167:8000/student/me",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${jwtToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          // console.log(3, getResponse);
+          const data = await getResponse.json();
+          const userId = data.id;
+
+          localStorage.setItem("userId", userId);
+          if (student) {
+            usenavigate(`/student/${userId}`);
+          } else {
+            usenavigate(`/admin/${userId}`);
+          }
+        }
+        if (postResponse.status === 401) {
+          toast.warning("Email is not verified.");
+          return;
+        }
+        if (postResponse.status === 403 || postResponse.status === 422) {
+          toast.warning("Invalid Credentials");
+          return;
+        }
+      } catch (error) {
+        toast.error("Login Failed due to :" + error.message);
+      }
     }
   };
 
@@ -81,8 +97,7 @@ const Login = () => {
       {/* Navigation-bar */}
       <SignupNav />
       {/* Navigation-bar */}
-
-      <form className="login-container">
+      <div className="login-container">
         <div className="selection login-group">
           <button
             onClick={handleAdmin}
@@ -134,7 +149,7 @@ const Login = () => {
             Forgot Password?
           </p>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
