@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Student from "./pages/Student";
 import Admin from "./pages/Admin";
 import EmailVerify from "./pages/EmailVerify";
+import Forgot from "./pages/Forgot";
 
 function App() {
   // token store
@@ -28,6 +29,7 @@ function App() {
           <Route path="/student/:id" element={<Student />} />
           <Route path="/admin/:id" element={<Admin />} />
           <Route path="/emailVerification" element={<EmailVerify />} />
+          <Route path="/forgotPassword" element={<Forgot />} />
 
           <Route
             path="*"

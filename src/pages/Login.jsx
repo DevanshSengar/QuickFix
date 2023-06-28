@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import { toast } from "react-toastify";
 import SignupNav from "../components/SignupNav.jsx";
@@ -48,9 +48,9 @@ const Login = () => {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(inputObj),
         });
-        console.log(1, postResponse);
+        // console.log(1, postResponse);
         const json = await postResponse.json();
-        console.log(2, json);
+        // console.log(2, json);
 
         if (postResponse.status === 200) {
           toast.success("Login Successful");
@@ -140,14 +140,9 @@ const Login = () => {
           <button onClick={proceedLogin} className="login-button" type="submit">
             Log In
           </button>
-          <p
-            onClick={() => {
-              alert("Yaad rakha kr na");
-            }}
-            className="forgot"
-          >
-            Forgot Password?
-          </p>
+          <Link to={"/forgotPassword"}>
+            <p className="forgot">Forgot Password?</p>
+          </Link>
         </div>
       </div>
     </div>

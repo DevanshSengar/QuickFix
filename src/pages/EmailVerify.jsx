@@ -7,7 +7,7 @@ const EmailVerify = () => {
   // toast.success("Registered successfully.");
   const email = localStorage.getItem("email");
 
-  const handleVerification = async (e) => {
+  const handleVerification = async () => {
     try {
       const response = await fetch("http://192.168.69.167:8000/verify", {
         method: "POST",
@@ -39,13 +39,13 @@ const EmailVerify = () => {
       <SignupNav />
       <div
         className="home-container"
-        style={{ maxWidth: "40rem", height: "22rem", padding: "3rem 3rem" }}
+        style={{ maxWidth: "40rem", height: "22rem", padding: "3rem 3.5rem" }}
       >
         <p className="paragraph">
           A mail has been sent to your {email} for verification.
         </p>
         <div style={{ width: "100%", padding: "2rem 0 0 0" }}>
-          <Link to={"/login"} style={{}}>
+          <Link to={"/login"}>
             <button className="login-button">Log In</button>
           </Link>
           <p

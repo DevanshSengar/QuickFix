@@ -48,7 +48,7 @@ const Signup = () => {
     }
     if (password.length < 6) {
       toast.warning("Password must be at least 6 characters");
-      return;
+      return false;
     }
     if (password !== password2) {
       setPassword("");
