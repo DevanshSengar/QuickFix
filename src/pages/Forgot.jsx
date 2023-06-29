@@ -1,10 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LoginNav from "../components/LoginNav";
 import OtpInput from "../components/OTPinput";
 import { toast } from "react-toastify";
 
 const Forgot = () => {
+  const usenavigate = useNavigate();
+  let abc = localStorage.getItem("jwtToken");
+  // console.log(abc);
+  useEffect(() => {
+    if (abc !== null) {
+      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    }
+  }, [abc, usenavigate]);
+
   const [sendOtp, setSendOtp] = useState(true);
   const [verifyOtp, setVerifyOtp] = useState(false);
   const [changePassword, setChangePassword] = useState(false);

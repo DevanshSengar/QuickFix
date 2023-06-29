@@ -1,9 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/home.css";
 
 const Home = () => {
+  const usenavigate = useNavigate();
+  let abc = localStorage.getItem("jwtToken");
+  // console.log(abc);
+  useEffect(() => {
+    if (abc !== null) {
+      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    }
+  }, [abc, usenavigate]);
   return (
     <div>
       <nav className="nav-bar">

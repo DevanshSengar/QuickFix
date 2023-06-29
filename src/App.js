@@ -10,13 +10,14 @@ import Student from "./pages/Student";
 import Admin from "./pages/Admin";
 import EmailVerify from "./pages/EmailVerify";
 import Forgot from "./pages/Forgot";
+import NewComplaint from "./pages/NewComplaint";
 
 function App() {
   // token store
   return (
     <div className="bg-image">
       <ToastContainer
-        style={{ fontSize: "1.5rem", maxWidth: "50vw" }}
+        style={{ fontSize: "1.4rem" }}
         theme="dark"
         pauseOnHover
         position="bottom-right"
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin/:id" element={<Admin />} />
           <Route path="/emailVerification" element={<EmailVerify />} />
           <Route path="/forgotPassword" element={<Forgot />} />
+          <Route path="/newComplaint" element={<NewComplaint />} />
 
           <Route
             path="*"

@@ -1,10 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SignupNav from "../components/SignupNav";
 import { toast } from "react-toastify";
 
 const EmailVerify = () => {
   // toast.success("Registered successfully.");
+  const usenavigate = useNavigate();
+  let abc = localStorage.getItem("jwtToken");
+  // console.log(abc);
+  useEffect(() => {
+    if (abc !== null) {
+      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    }
+  }, [abc, usenavigate]);
   const email = localStorage.getItem("email");
 
   const handleVerification = async () => {
@@ -27,6 +35,10 @@ const EmailVerify = () => {
       }
       if (response.status === 409) {
         toast.error(result.detail);
+        return;
+      }
+      if (response.status === 422) {
+        toast.error("Email not provided...Please register first.");
         return;
       }
     } catch (err) {

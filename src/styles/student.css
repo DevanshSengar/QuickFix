@@ -76,23 +76,3 @@
   height: 2rem;
   margin-right: 0.5rem;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-label {
-  padding: 0.35rem;
-  padding-left: 1rem;
-  display: flex;
-}
-
-label p {
-  padding-left: 0.5rem;
-}
-
-input[type="radio"] {
-  cursor: pointer;
-}

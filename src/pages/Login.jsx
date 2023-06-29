@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import { toast } from "react-toastify";
 import SignupNav from "../components/SignupNav.jsx";
 
 const Login = () => {
+  const usenavigate = useNavigate();
+
+  let abc = localStorage.getItem("jwtToken");
+  // console.log(abc);
+  useEffect(() => {
+    if (abc !== null) {
+      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    }
+  }, [abc, usenavigate]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [student, setStudent] = useState(true);
@@ -22,8 +32,6 @@ const Login = () => {
     setStudent(false);
     setType("admin");
   }
-
-  const usenavigate = useNavigate();
 
   const validate = () => {
     let result = true;
@@ -57,25 +65,37 @@ const Login = () => {
           const jwtToken = json.access_token;
           localStorage.setItem("jwtToken", jwtToken);
 
-          const getResponse = await fetch(
-            "http://192.168.69.167:8000/student/me",
-            {
+          let getResponse = null;
+          try {
+            getResponse = await fetch("http://192.168.69.167:8000/student/me", {
               method: "GET",
               headers: {
                 Authorization: `Bearer ${jwtToken}`,
                 "Content-Type": "application/json",
               },
+            });
+            if (getResponse.status !== 200) {
+              toast.error("Unexpected error occurred");
+              return;
             }
-          );
-          // console.log(3, getResponse);
+            // console.log(3, getResponse);
+          } catch (err) {
+            console.log(err);
+            toast.error("Failed to fetch user data.");
+            return;
+          }
           const data = await getResponse.json();
-          const userId = data.id;
 
-          localStorage.setItem("userId", userId);
+          localStorage.setItem("userId", data.id);
+          localStorage.setItem("userName", data.name);
+          localStorage.setItem("userEmail", data.email);
+          localStorage.setItem("userHostel", data.hostel);
+          localStorage.setItem("userRoom", data.room);
+
           if (student) {
-            usenavigate(`/student/${userId}`);
+            usenavigate(`/student/${data.id}`);
           } else {
-            usenavigate(`/admin/${userId}`);
+            usenavigate(`/admin/${data.id}`);
           }
         }
         if (postResponse.status === 401) {
@@ -87,7 +107,8 @@ const Login = () => {
           return;
         }
       } catch (error) {
-        toast.error("Login Failed due to :" + error.message);
+        console.log(error);
+        toast.error("Login Failed: " + error.message);
       }
     }
   };

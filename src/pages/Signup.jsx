@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 import { toast } from "react-toastify";
 import LoginNav from "../components/LoginNav.jsx";
 
 const Signup = () => {
+  const usenavigate = useNavigate();
+
+  let abc = localStorage.getItem("jwtToken");
+  // console.log(abc);
+  useEffect(() => {
+    if (abc !== null) {
+      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    }
+  }, [abc, usenavigate]);
+
   const [student, setStudent] = useState(true);
   const [admin, setAdmin] = useState(false);
 
@@ -17,8 +27,6 @@ const Signup = () => {
     setAdmin(true);
     setStudent(false);
   }
-
-  const usenavigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
