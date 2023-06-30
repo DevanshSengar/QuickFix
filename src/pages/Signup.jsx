@@ -79,12 +79,11 @@ const Signup = () => {
             headers: { "content-type": "application/json" },
             body: JSON.stringify(formData),
           });
-          console.log(1, response);
+          // console.log(1, response);
           const result = await response.json();
-          console.log(2, result);
+          // console.log(2, result);
 
           if (response.status === 201) {
-            localStorage.setItem("email", email);
             toast.success("Registered successfully.");
             usenavigate("/emailVerification");
             return;
@@ -103,37 +102,39 @@ const Signup = () => {
         }
       }
     }
-    // if (admin) {
-    //   const formData = { name, email, hostel, password };
-    //   if (IsValidate()) {
-    //     // console.log(formData);
-    //     try {
-    //       const response = await fetch("http://192.168.69.167:8000/student", {
-    //         method: "POST",
-    //         headers: { "content-type": "application/json" },
-    //         body: JSON.stringify(formData),
-    //       });
-    //       console.log(1, response);
-    //       const result = await response.json();
-    //       console.log(2, result);
-    //       if (response.status === 201) {
-    //         toast.success("Registered successfully.");
-    //         navigate("/emailVerification");
-    //       }
-    //       if (response.status === 422) {
-    //         toast.error("Use Institute Email Only");
-    //         return;
-    //       }
-    //       if (response.status === 409) {
-    //         toast.error(result.detail);
-    //         return;
-    //       }
-    //     } catch (err) {
-    //       console.log(err);
-    //       toast.error("Failed :" + err);
-    //     }
-    //   }
-    // }
+    if (admin) {
+      const formData = { name, email, hostel, password };
+      if (IsValidate()) {
+        // console.log(formData);
+        try {
+          const response = await fetch("http://192.168.69.167:8000/admin", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+          // console.log(1, response);
+          const result = await response.json();
+          // console.log(2, result);
+
+          if (response.status === 201) {
+            toast.success("Registered successfully.");
+            usenavigate("/emailVerification");
+            return;
+          }
+          if (response.status === 422) {
+            toast.error("Validation Error");
+            return;
+          }
+          if (response.status === 409) {
+            toast.error(result.detail);
+            return;
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error("Failed :" + err);
+        }
+      }
+    }
   };
 
   return (

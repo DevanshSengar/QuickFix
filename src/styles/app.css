@@ -73,8 +73,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 1.05rem;
-  padding-left: 1.4rem;
+  padding: 1.05rem 1.5rem;
   border-radius: 50px;
   border: 1px solid #454545;
   outline: none;
@@ -97,7 +96,7 @@ label {
   display: flex;
 }
 label p {
-  padding-left: 0.5rem;
+  padding: 0.5rem;
 }
 input[type="radio"] {
   cursor: pointer;

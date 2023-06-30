@@ -1,0 +1,106 @@
+.reg-head {
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
+  word-spacing: 0.6rem;
+  margin-top: 4rem;
+}
+
+.container-r {
+  width: 100vw;
+  margin-bottom: 10rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+}
+
+.choices-r {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  color: white;
+  height: 35rem;
+  width: 22%;
+  margin-top: 3.2rem;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.com-r {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  color: white;
+  height: 50rem;
+  width: 45%;
+  margin-top: 2.5rem;
+  padding: 1.5rem 3rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.uploadImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  color: white;
+  height: 38rem;
+  width: 24%;
+  margin-top: 3.2rem;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.drop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem 0 1.5rem;
+}
+
+.drop p {
+  font-size: 1.7rem;
+}
+
+.drop :nth-child(2) {
+  margin-left: 2rem;
+}
+
+.drop-down {
+  color: white;
+  background: #425fc6;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2rem;
+  outline: none;
+  width: 47%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.upload {
+  padding: 3rem 0 0 3rem;
+  width: 81.5%;
+  height: 25.5rem;
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+textarea {
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid #454545;
+  outline: none;
+}

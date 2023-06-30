@@ -1,6 +1,5 @@
 .container {
   height: 60rem;
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -42,7 +41,6 @@
   overflow: auto;
   margin: 2rem 0;
   height: 79%;
-  /* position: absolute; */
 }
 
 .com-complaints::-webkit-scrollbar {
