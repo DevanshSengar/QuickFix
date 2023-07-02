@@ -13,6 +13,18 @@ const Student = () => {
   const [selectedButton, setSelectedButton] = useState(1);
   const [loading, setLoading] = useState(false);
   const [complaints, setComplaints] = useState(null);
+  const [filteredComplaints, setFilteredComplaints] = useState(null);
+  // category
+  const [carpentary, setCarpentary] = useState(true);
+  const [electrical, setElectrical] = useState(true);
+  const [plumbing, setPlumbing] = useState(true);
+  // states
+  const [newc, setNewc] = useState(true);
+  const [accepted, setAccepted] = useState(true);
+  const [rejected, setRejected] = useState(true);
+  const [done, setDone] = useState(true);
+  const [closed, setClosed] = useState(true);
+
   const usenavigate = useNavigate();
 
   const isTokenExpired = () => {
@@ -70,6 +82,7 @@ const Student = () => {
         // console.log(data);
         if (data !== null) setLoading(true);
         setComplaints(data);
+        setFilteredComplaints(data);
       } catch (err) {
         console.log(err);
         toast.error("Failed to fetch user data.");
@@ -78,6 +91,41 @@ const Student = () => {
 
     fetchData();
   }, [selectedButton]);
+
+  useEffect(() => {
+    if (loading) {
+      let cat = [];
+      if (carpentary) cat.push("carpentry");
+      if (electrical) cat.push("electrical");
+      if (plumbing) cat.push("plumbing");
+
+      let stat = [];
+      if (newc) stat.push("new");
+      if (accepted) stat.push("accepted");
+      if (rejected) stat.push("rejected");
+      if (closed) stat.push("closed");
+      if (done) stat.push("done");
+
+      let newList = [];
+      for (let i of complaints) {
+        if (cat.includes(i.category) && stat.includes(i.state)) newList.push(i);
+      }
+      setFilteredComplaints(newList);
+    }
+  }, [
+    loading,
+    complaints,
+    carpentary,
+    electrical,
+    plumbing,
+    newc,
+    accepted,
+    rejected,
+    done,
+    closed,
+  ]);
+
+  console.log(2, filteredComplaints);
 
   return (
     <div>
@@ -90,50 +138,115 @@ const Student = () => {
           <div>
             <h2 style={{ fontSize: "25px", fontWeight: 500 }}>Category</h2>
             <form>
-              <label>
-                <input type="checkbox" name="item" value="Item 1" />
-                <p>Carpentary</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 1"
+                  checked={carpentary}
+                  onChange={() => {
+                    setCarpentary(!carpentary);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Carpentary</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 2" />
-                <p>Electrical</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 2"
+                  checked={electrical}
+                  onChange={() => {
+                    setElectrical(!electrical);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Electrical</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 3" />
-                <p>Plumbing</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 3"
+                  checked={plumbing}
+                  onChange={() => {
+                    setPlumbing(!plumbing);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Plumbing</p>
+              </div>
             </form>
           </div>
 
           <div>
             <h2 style={{ fontSize: "25px", fontWeight: 500 }}>State</h2>
             <form>
-              <label>
-                <input type="checkbox" name="item" value="Item 1" />
-                <p>New</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 1"
+                  checked={newc}
+                  onChange={() => {
+                    setNewc(!newc);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>New</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 2" />
-                <p>Accepted</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 2"
+                  checked={accepted}
+                  onChange={() => {
+                    setAccepted(!accepted);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Accepted</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 3" />
-                <p>Rejected</p>
-              </label>
+              <div className="filter">
+                <input
+                  // onChange={}
+                  className="check"
+                  type="checkbox"
+                  value="Item 3"
+                  checked={rejected}
+                  onChange={() => {
+                    setRejected(!rejected);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Rejected</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 4" />
-                <p>Done</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 4"
+                  checked={done}
+                  onChange={() => {
+                    setDone(!done);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Done</p>
+              </div>
 
-              <label>
-                <input type="checkbox" name="item" value="Item 5" />
-                <p>Closed</p>
-              </label>
+              <div className="filter">
+                <input
+                  className="check"
+                  type="checkbox"
+                  value="Item 5"
+                  checked={closed}
+                  onChange={() => {
+                    setClosed(!closed);
+                  }}
+                />
+                <p style={{ paddingLeft: "0.5rem" }}>Closed</p>
+              </div>
             </form>
           </div>
         </div>
@@ -205,7 +318,7 @@ const Student = () => {
             </div>
             <div className="com-complaints">
               {loading &&
-                complaints.map((complaint) => (
+                filteredComplaints.map((complaint) => (
                   <Complaint key={complaint.id} objectProp={complaint} />
                 ))}
             </div>
