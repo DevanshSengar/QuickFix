@@ -1,14 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/newComplaint.css";
+import { toast } from "react-toastify";
 import im6 from "../assets/uploadImage.png";
 
 const RegisterComplaint = () => {
   const hostel = localStorage.getItem("userHostel");
   const room = localStorage.getItem("userRoom");
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
+
+  const [category, setCategory] = useState("");
+  const [object, setObject] = useState("");
+  // const [password, setPassword] = useState("");
+  const usenavigate = useNavigate();
+
+  const isTokenExpired = () => {
+    try {
+      const expirationTime = Number(localStorage.getItem("expDate"));
+      const currentTime = Date.now();
+      if (
+        expirationTime < currentTime ||
+        localStorage.getItem("jwtToken") === null
+      ) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (isTokenExpired()) {
+      toast.error("Session Expired");
+      localStorage.clear();
+      usenavigate("/");
+    }
+  }, [usenavigate]);
+
   return (
     <div
       style={{
@@ -27,8 +61,8 @@ const RegisterComplaint = () => {
             <p>Category</p>
             <select
               className="drop-down"
-              // value={}
-              // onChange={}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value="bh1">Carpentary</option>
               <option value="bh2">Electrical</option>
@@ -40,8 +74,8 @@ const RegisterComplaint = () => {
             <p>Object</p>
             <select
               className="drop-down"
-              // value={}
-              // onChange={}
+              value={object}
+              onChange={(e) => setObject(e.target.value)}
             >
               <option value="bh1">Carpentary</option>
               <option value="bh2">Electrical</option>
@@ -87,7 +121,7 @@ const RegisterComplaint = () => {
               placeholder="Description*"
               name="description"
               cols="30"
-              rows="10"
+              rows="8"
             ></textarea>
           </div>
 
@@ -102,12 +136,12 @@ const RegisterComplaint = () => {
           >
             <p style={{ fontSize: "1.7rem" }}>Type</p>
             <label style={{ display: "flex" }}>
-              <input type="radio" />
+              <input type="radio" name="type" />
               <p>Personal</p>
             </label>
 
             <label style={{ display: "flex" }}>
-              <input type="radio" />
+              <input type="radio" name="type" />
               <p>Common</p>
             </label>
           </div>
@@ -126,7 +160,7 @@ const RegisterComplaint = () => {
             <button
               style={{
                 backgroundColor: "#19c37d",
-                width: "40%",
+                width: "30%",
               }}
             >
               <p>Submit</p>
@@ -143,16 +177,17 @@ const RegisterComplaint = () => {
                 e.preventDefault();
               }}
               src={im6}
-              alt="Upload pic"
+              alt="Upload Pic"
             />
           </div>
           <button
             style={{
               backgroundColor: "#425fc6",
               width: "60%",
+              fontSize: "1.3rem",
             }}
           >
-            <p>Upload Image</p>
+            Upload Image
           </button>
         </div>
       </div>

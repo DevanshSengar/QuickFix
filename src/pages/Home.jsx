@@ -1,17 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../styles/home.css";
 
 const Home = () => {
-  const usenavigate = useNavigate();
-  let abc = localStorage.getItem("jwtToken");
-  // console.log(abc);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
-    if (abc !== null) {
-      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    if (localStorage.getItem("jwtToken") !== null) {
+      setIsLoggedIn(true);
     }
-  }, [abc, usenavigate]);
+  }, []);
+
+  const usenavigate = useNavigate();
+
+  if (isLoggedIn) {
+    usenavigate(`/student/${localStorage.getItem("userId")}`);
+    return null;
+  }
+
   return (
     <div>
       <nav className="nav-bar">

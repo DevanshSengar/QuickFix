@@ -5,15 +5,6 @@ import OtpInput from "../components/OTPinput";
 import { toast } from "react-toastify";
 
 const Forgot = () => {
-  const usenavigate = useNavigate();
-  let abc = localStorage.getItem("jwtToken");
-  // console.log(abc);
-  useEffect(() => {
-    if (abc !== null) {
-      usenavigate(`/student/${localStorage.getItem("userId")}`);
-    }
-  }, [abc, usenavigate]);
-
   const [sendOtp, setSendOtp] = useState(true);
   const [verifyOtp, setVerifyOtp] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
@@ -26,6 +17,20 @@ const Forgot = () => {
   const [admin, setAdmin] = useState(false);
   const [type, setType] = useState("student");
   const [passwordToken, setPasswordToken] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken") !== null) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const usenavigate = useNavigate();
+
+  if (isLoggedIn) {
+    usenavigate(`/student/${localStorage.getItem("userId")}`);
+    return null;
+  }
 
   function handleStudent() {
     setStudent(true);

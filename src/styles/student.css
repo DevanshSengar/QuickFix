@@ -40,7 +40,7 @@
 .com-complaints {
   overflow: auto;
   margin: 2rem 0;
-  height: 79%;
+  height: 78%;
 }
 
 .com-complaints::-webkit-scrollbar {

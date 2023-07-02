@@ -5,21 +5,25 @@ import { toast } from "react-toastify";
 import SignupNav from "../components/SignupNav.jsx";
 
 const Login = () => {
-  const usenavigate = useNavigate();
-
-  let abc = localStorage.getItem("jwtToken");
-  // console.log(abc);
-  useEffect(() => {
-    if (abc !== null) {
-      usenavigate(`/student/${localStorage.getItem("userId")}`);
-    }
-  }, [abc, usenavigate]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [student, setStudent] = useState(true);
   const [admin, setAdmin] = useState(false);
   const [type, setType] = useState("student");
+
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken") !== null) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const usenavigate = useNavigate();
+
+  if (isLoggedIn) {
+    usenavigate(`/student/${localStorage.getItem("userId")}`);
+    return null;
+  }
 
   function handleStudent() {
     setStudent(true);
@@ -64,6 +68,12 @@ const Login = () => {
           toast.success("Login Successful");
           const jwtToken = json.access_token;
           localStorage.setItem("jwtToken", jwtToken);
+          const min = json.exp;
+          const currentDate = new Date();
+          const expDate = currentDate.setMinutes(
+            currentDate.getMinutes() + min
+          );
+          localStorage.setItem("expDate", expDate);
 
           let getResponse = null;
           try {
@@ -93,6 +103,7 @@ const Login = () => {
           localStorage.setItem("userRoom", data.room);
 
           if (student) {
+            // console.log("hello");
             usenavigate(`/student/${data.id}`);
           } else {
             usenavigate(`/admin/${data.id}`);

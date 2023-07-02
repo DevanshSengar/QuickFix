@@ -1,57 +1,83 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import jwt from "jsonwebtoken";
 import rlogo from "../assets/recentLOGO.png";
 import clogo from "../assets/newComLOGO.png";
 import Complaint from "../components/Complaint.jsx";
 import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/student.css";
+import { toast } from "react-toastify";
+// import axios from "axios";
+// import { toast } from "react-toastify";
 
 const Student = () => {
-  // const isTokenExpired = (s) => {
-  //   try {
-  //     // Decode the token to extract the payload
-  //     const decodedToken = jwt.decode(token);
-
-  //     // Check if the token has an expiration claim
-  //     if (decodedToken && decodedToken.exp) {
-  //       // Get the expiration timestamp (in seconds)
-  //       const expirationTime = decodedToken.exp;
-
-  //       // Get the current timestamp (in seconds)
-  //       const currentTime = Math.floor(Date.now() / 1000);
-
-  //       // Compare the expiration time with the current time
-  //       if (expirationTime < currentTime) {
-  //         // Token is expired
-  //         return true;
-  //       }
-  //     }
-  //     // Token is not expired
-  //     return false;
-  //   } catch (error) {
-  //     // Error occurred while decoding the token
-  //     console.error("Error decoding token:", error);
-  //     return false;
-  //   }
-  // };
-
-  // const usenavigate = useNavigate();
-  // useEffect(() => {
-  //   const token = localStorage.getItem("jwtToken");
-
-  //   if (isTokenExpired(token)) {
-  //     localStorage.removeItem("jwtToken");
-  //     usenavigate("/");
-  //     return;
-  //   }
-  // }, []);
-
   const [selectedButton, setSelectedButton] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [complaints, setComplaints] = useState(null);
+  const usenavigate = useNavigate();
+
+  const isTokenExpired = () => {
+    try {
+      const expirationTime = Number(localStorage.getItem("expDate"));
+      const currentTime = Date.now();
+      if (
+        expirationTime < currentTime ||
+        localStorage.getItem("jwtToken") === null
+      ) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (isTokenExpired()) {
+      toast.error("Session Expired");
+      localStorage.clear();
+      usenavigate("/");
+    }
+  }, [usenavigate]);
 
   const handleButtonClick = (buttonId) => {
     setSelectedButton(buttonId);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const jwt = localStorage.getItem("jwtToken");
+        let url = "";
+        if (selectedButton === 1)
+          url = "http://192.168.69.167:8000/complaint/my";
+        else url = "http://192.168.69.167:8000/complaint/common";
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.status !== 200) {
+          toast.error("Failed to fetch user complaints.");
+          return;
+        }
+
+        const data = await response.json();
+        // console.log(data);
+        if (data !== null) setLoading(true);
+        setComplaints(data);
+      } catch (err) {
+        console.log(err);
+        toast.error("Failed to fetch user data.");
+      }
+    };
+
+    fetchData();
+  }, [selectedButton]);
 
   return (
     <div>
@@ -178,16 +204,10 @@ const Student = () => {
               </div>
             </div>
             <div className="com-complaints">
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
-              <Complaint />
+              {loading &&
+                complaints.map((complaint) => (
+                  <Complaint key={complaint.id} objectProp={complaint} />
+                ))}
             </div>
           </div>
         </div>

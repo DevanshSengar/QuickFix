@@ -5,18 +5,28 @@ import { toast } from "react-toastify";
 import LoginNav from "../components/LoginNav.jsx";
 
 const Signup = () => {
-  const usenavigate = useNavigate();
-
-  let abc = localStorage.getItem("jwtToken");
-  // console.log(abc);
-  useEffect(() => {
-    if (abc !== null) {
-      usenavigate(`/student/${localStorage.getItem("userId")}`);
-    }
-  }, [abc, usenavigate]);
-
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [hostel, setHostel] = useState("");
+  const [room, setRoom] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [student, setStudent] = useState(true);
   const [admin, setAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken") !== null) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const usenavigate = useNavigate();
+
+  if (isLoggedIn) {
+    usenavigate(`/student/${localStorage.getItem("userId")}`);
+    return null;
+  }
 
   function handleStudent() {
     setStudent(true);
@@ -27,13 +37,6 @@ const Signup = () => {
     setAdmin(true);
     setStudent(false);
   }
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [hostel, setHostel] = useState("");
-  const [room, setRoom] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
 
   const IsValidate = () => {
     if (

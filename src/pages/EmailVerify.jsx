@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SignupNav from "../components/SignupNav";
 import { toast } from "react-toastify";
 
 const EmailVerify = () => {
-  // toast.success("Registered successfully.");
-  const usenavigate = useNavigate();
-  let abc = localStorage.getItem("jwtToken");
-  // console.log(abc);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
-    if (abc !== null) {
-      usenavigate(`/student/${localStorage.getItem("userId")}`);
+    if (localStorage.getItem("jwtToken") !== null) {
+      setIsLoggedIn(true);
     }
-  }, [abc, usenavigate]);
+  }, []);
+
+  const usenavigate = useNavigate();
+
+  if (isLoggedIn) {
+    usenavigate(`/student/${localStorage.getItem("userId")}`);
+    return null;
+  }
+
   const email = localStorage.getItem("email");
 
   const handleVerification = async () => {
