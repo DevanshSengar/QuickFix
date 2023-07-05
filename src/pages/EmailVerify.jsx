@@ -23,11 +23,14 @@ const EmailVerify = () => {
 
   const handleVerification = async () => {
     try {
-      const response = await fetch("http://192.168.69.167:8000/verify", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email: email }),
-      });
+      const response = await fetch(
+        "https://quickfix-fuql.onrender.com/verify",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ email: email }),
+        }
+      );
       console.log(3, response);
       const result = await response.json();
       console.log(4, result);

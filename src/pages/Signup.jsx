@@ -77,11 +77,14 @@ const Signup = () => {
       if (IsValidate()) {
         // console.log(formData);
         try {
-          const response = await fetch("http://192.168.69.167:8000/student", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(formData),
-          });
+          const response = await fetch(
+            "https://quickfix-fuql.onrender.com/student",
+            {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(formData),
+            }
+          );
           // console.log(1, response);
           const result = await response.json();
           // console.log(2, result);
@@ -110,11 +113,14 @@ const Signup = () => {
       if (IsValidate()) {
         // console.log(formData);
         try {
-          const response = await fetch("http://192.168.69.167:8000/admin", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(formData),
-          });
+          const response = await fetch(
+            "https://quickfix-fuql.onrender.com/admin",
+            {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(formData),
+            }
+          );
           // console.log(1, response);
           const result = await response.json();
           // console.log(2, result);

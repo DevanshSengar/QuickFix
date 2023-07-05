@@ -55,11 +55,14 @@ const Login = () => {
     if (validate()) {
       let inputObj = { email: email, password: password, type: type };
       try {
-        const postResponse = await fetch("http://192.168.69.167:8000/login", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(inputObj),
-        });
+        const postResponse = await fetch(
+          "https://quickfix-fuql.onrender.com/login",
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(inputObj),
+          }
+        );
         // console.log(1, postResponse);
         const json = await postResponse.json();
         // console.log(2, json);
@@ -77,13 +80,16 @@ const Login = () => {
 
           let getResponse = null;
           try {
-            getResponse = await fetch("http://192.168.69.167:8000/student/me", {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${jwtToken}`,
-                "Content-Type": "application/json",
-              },
-            });
+            getResponse = await fetch(
+              "https://quickfix-fuql.onrender.com/student/me",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${jwtToken}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
             if (getResponse.status !== 200) {
               toast.error("Unexpected error occurred");
               return;

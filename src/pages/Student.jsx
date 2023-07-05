@@ -6,7 +6,6 @@ import Complaint from "../components/Complaint.jsx";
 import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/student.css";
 import { toast } from "react-toastify";
-// import axios from "axios";
 // import { toast } from "react-toastify";
 
 const Student = () => {
@@ -62,8 +61,8 @@ const Student = () => {
         const jwt = localStorage.getItem("jwtToken");
         let url = "";
         if (selectedButton === 1)
-          url = "http://192.168.69.167:8000/complaint/my";
-        else url = "http://192.168.69.167:8000/complaint/common";
+          url = "https://quickfix-fuql.onrender.com/complaint/my";
+        else url = "https://quickfix-fuql.onrender.com/complaint/common";
 
         const response = await fetch(url, {
           method: "GET",
@@ -79,10 +78,12 @@ const Student = () => {
         }
 
         const data = await response.json();
-        // console.log(data);
-        if (data !== null) setLoading(true);
-        setComplaints(data);
-        setFilteredComplaints(data);
+        // console.log(1, data);
+        if (data !== null) {
+          setLoading(true);
+          setComplaints(data);
+          setFilteredComplaints(data);
+        }
       } catch (err) {
         console.log(err);
         toast.error("Failed to fetch user data.");
@@ -110,6 +111,7 @@ const Student = () => {
       for (let i of complaints) {
         if (cat.includes(i.category) && stat.includes(i.state)) newList.push(i);
       }
+      console.log(2, newList);
       setFilteredComplaints(newList);
     }
   }, [
@@ -124,8 +126,6 @@ const Student = () => {
     done,
     closed,
   ]);
-
-  console.log(2, filteredComplaints);
 
   return (
     <div>

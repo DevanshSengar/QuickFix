@@ -4,7 +4,6 @@ import "../styles/complaint.css";
 export default function Complaint({ objectProp }) {
   const { title, description, state, created, student } = objectProp;
 
-  const paragraph = description;
   const dateTime = new Date(created);
   // Extract the date and time components
   const year = dateTime.getFullYear();
@@ -27,7 +26,9 @@ export default function Complaint({ objectProp }) {
         <div className="comp-description">
           <h1 className="comp-title">{title}</h1>
           <p className="comp-para">
-            {paragraph.length < 50 ? paragraph : paragraph.slice(0, 50) + "..."}
+            {description.length < 50
+              ? description
+              : description.slice(0, 50) + "..."}
           </p>
         </div>
       </div>

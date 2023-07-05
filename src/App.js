@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import EmailVerify from "./pages/EmailVerify";
 import Forgot from "./pages/Forgot";
 import NewComplaint from "./pages/NewComplaint";
+import Popup from "./components/Popup";
 
 function App() {
   // token store
@@ -32,6 +33,7 @@ function App() {
           <Route path="/emailVerification" element={<EmailVerify />} />
           <Route path="/forgotPassword" element={<Forgot />} />
           <Route path="/newComplaint" element={<NewComplaint />} />
+          <Route path="/popup" element={<Popup />} />
 
           <Route
             path="*"

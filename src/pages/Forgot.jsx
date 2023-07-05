@@ -53,7 +53,7 @@ const Forgot = () => {
   const handleResendOTP = async () => {
     try {
       const postResponse = await fetch(
-        "http://192.168.69.167:8000/password/send-otp",
+        "https://quickfix-fuql.onrender.com/password/send-otp",
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -85,7 +85,7 @@ const Forgot = () => {
     }
     try {
       const postResponse = await fetch(
-        "http://192.168.69.167:8000/password/send-otp",
+        "https://quickfix-fuql.onrender.com/password/send-otp",
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -119,7 +119,7 @@ const Forgot = () => {
     }
     try {
       const postResponse = await fetch(
-        "http://192.168.69.167:8000/password/verify-otp",
+        "https://quickfix-fuql.onrender.com/password/verify-otp",
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -168,14 +168,17 @@ const Forgot = () => {
     }
     try {
       console.log(passwordToken);
-      const postResponse = await fetch("http://192.168.69.167:8000/password", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          newPassword: newpassword,
-          token: passwordToken,
-        }),
-      });
+      const postResponse = await fetch(
+        "https://quickfix-fuql.onrender.com/password",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            newPassword: newpassword,
+            token: passwordToken,
+          }),
+        }
+      );
 
       // console.log(1, postResponse);
       if (postResponse.status === 200) {
