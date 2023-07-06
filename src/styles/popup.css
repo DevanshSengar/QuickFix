@@ -1,20 +1,66 @@
 .popup {
-  position: relative;
   padding: 2rem;
-  width: 60vw;
+  width: 62vw;
   height: 60vh;
   background-color: #e1dbd1;
-  border-radius: 2.5rem;
-  z-index: 3;
+  border-radius: 2.8rem;
+  cursor: default;
+  color: black;
+  z-index: 1;
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(2px);
-  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.desc-list {
+  display: flex;
+  padding-top: 10px;
+}
+
+.desc-list-left {
+  list-style: none;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.desc-list-right {
+  padding-left: 10px;
+  list-style: none;
+  font-size: 15px;
+  padding-top: 4px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border-radius: 50%;
+}
+.desc {
+  font-size: 15px;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.name-time:before {
+  content: "• ";
+}
+
+.name-time {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 15px;
+  display: flex;
 }

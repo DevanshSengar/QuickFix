@@ -6,7 +6,6 @@ import Complaint from "../components/Complaint.jsx";
 import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/student.css";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
 
 const Student = () => {
   const [selectedButton, setSelectedButton] = useState(1);

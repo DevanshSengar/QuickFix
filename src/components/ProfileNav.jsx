@@ -9,8 +9,9 @@ export default function ProfileNav() {
       <Link to={`/student/${localStorage.getItem("userId")}`}>
         <img src={logo} alt="Logo" className="logo" />
       </Link>
-
-      <img src={plogo} alt="Logo" className="plogo" />
+      <Link to={`/profile/${localStorage.getItem("userId")}`}>
+        <img src={plogo} alt="Logo" className="plogo" />
+      </Link>
     </nav>
   );
 }

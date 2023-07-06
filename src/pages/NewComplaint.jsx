@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileNav from "../components/ProfileNav.jsx";
 import "../styles/newComplaint.css";
@@ -15,6 +15,7 @@ const RegisterComplaint = () => {
 
   const [category, setCategory] = useState("");
   const [object, setObject] = useState("");
+  const [image, setImage] = useState(null);
   // const [password, setPassword] = useState("");
   const usenavigate = useNavigate();
 
@@ -42,6 +43,16 @@ const RegisterComplaint = () => {
       usenavigate("/");
     }
   }, [usenavigate]);
+
+  const inputRef = useRef(null);
+
+  const handleImageUpload = () => {
+    inputRef.current.click();
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   return (
     <div
@@ -170,16 +181,31 @@ const RegisterComplaint = () => {
 
         {/* Third block */}
         <div className="uploadImage">
-          <div className="upload">
-            <img
-              style={{ height: "18rem" }}
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              src={im6}
-              alt="Upload Pic"
+          <div className="upload" onClick={handleImageUpload}>
+            {image ? (
+              <img
+                style={{
+                  height: "19rem",
+                  maxWidth: "19rem",
+                  alignSelf: "center",
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                src={URL.createObjectURL(image)}
+                alt="Upload Pic"
+              />
+            ) : (
+              <img style={{ height: "18rem" }} src={im6} alt="Upload Pic" />
+            )}
+            <input
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+              type="file"
+              ref={inputRef}
             />
           </div>
+
           <button
             style={{
               backgroundColor: "#425fc6",

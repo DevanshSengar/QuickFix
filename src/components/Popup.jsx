@@ -1,27 +1,26 @@
 import React from "react";
 import "../styles/popup.css";
 
-const Popup = () => {
+const Popup = ({ objectProp, onClose, day, month, year, hours, minutes }) => {
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div className="overlay"></div>
-      <div className="popup">
+    <div className="overlay" onClick={onClose}>
+      <div
+        className="popup"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <div className="popup-left">
-          <h1 className="popup-title">title</h1>
+          <h1 className="popup-title">{objectProp.title}</h1>
           <li className="name-time">
-            <ul>name</ul>
+            <ul>{objectProp.student.name}</ul>
           </li>
           <li className="name-time">
-            <ul>created</ul>
+            <ul>
+              {day}/{month}/{year} {hours}:{minutes}
+            </ul>
           </li>
-          <p>description</p>
+          <p className="desc">{objectProp.description}</p>
           <div className="desc-list">
             <ul className="desc-list-left">
               <li>Object</li>
@@ -30,14 +29,18 @@ const Popup = () => {
               <li>Category</li>
             </ul>
             <ul className="desc-list-right">
-              <li>Title</li>
-              <li>Location</li>
+              <li>{objectProp.title}</li>
+              <li>{localStorage.getItem("userHostel")}</li>
               <li>Type</li>
               <li>Category</li>
             </ul>
           </div>
-
-          <div className="popup-right">{/* image */}</div>
+        </div>
+        <div className="popup-right">
+          <button onClick={onClose} className="close-btn">
+            x
+          </button>
+          {/* image */}
         </div>
       </div>
     </div>

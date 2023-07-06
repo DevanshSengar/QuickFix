@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/complaint.css";
+import Popup from "./Popup";
 
 export default function Complaint({ objectProp }) {
   const { title, description, state, created, student } = objectProp;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenPopup = () => {
+    setIsOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsOpen(false);
+  };
 
   const dateTime = new Date(created);
   // Extract the date and time components
   const year = dateTime.getFullYear();
-  const month = dateTime.getMonth() + 1; // Adding 1 because months are zero-based(0-11)
+  const month = dateTime.getMonth() + 1;
   let day = dateTime.getDate();
   if (day < 10) day = "0" + String(day);
   const hours = dateTime.getHours();
@@ -20,23 +30,36 @@ export default function Complaint({ objectProp }) {
   else if (state === "closed") backgroundColor = "#205e4e";
 
   return (
-    <div className="com-component">
-      <div className="comp-left">
-        <div className="comp-state" style={{ backgroundColor }}></div>
-        <div className="comp-description">
-          <h1 className="comp-title">{title}</h1>
-          <p className="comp-para">
-            {description.length < 50
-              ? description
-              : description.slice(0, 50) + "..."}
-          </p>
+    <div>
+      {isOpen && (
+        <Popup
+          objectProp={objectProp}
+          onClose={handleClosePopup}
+          day={day}
+          year={year}
+          month={month}
+          hours={hours}
+          minutes={minutes}
+        />
+      )}
+      <div className="com-component" onClick={handleOpenPopup}>
+        <div className="comp-left">
+          <div className="comp-state" style={{ backgroundColor }}></div>
+          <div className="comp-description">
+            <h1 className="comp-title">{title}</h1>
+            <p className="comp-para">
+              {description.length < 50
+                ? description
+                : description.slice(0, 50) + "..."}
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="comp-right">
-        <div className="dnt">
-          {hours}:{minutes} &nbsp;&nbsp; {day}-{month}-{year}
+        <div className="comp-right">
+          <div className="dnt">
+            {hours}:{minutes} &nbsp;&nbsp; {day}-{month}-{year}
+          </div>
+          <div className="comp-name">{student && student.name}</div>
         </div>
-        <div className="comp-name">{student && student.name}</div>
       </div>
     </div>
   );
