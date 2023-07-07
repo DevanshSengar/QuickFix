@@ -1,14 +1,3 @@
-.popup {
-  padding: 2rem;
-  width: 62vw;
-  height: 60vh;
-  background-color: #e1dbd1;
-  border-radius: 2.8rem;
-  cursor: default;
-  color: black;
-  z-index: 1;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -24,43 +13,58 @@
   cursor: pointer;
 }
 
+.popup {
+  padding: 2rem;
+  width: 60vw;
+  height: 60vh;
+  background-color: #e1dbd1;
+  border-radius: 2.8rem;
+  cursor: default;
+  color: black;
+  z-index: 1;
+
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+}
+
 .desc-list {
   display: flex;
-  padding-top: 10px;
+  padding-top: 2rem;
 }
 
 .desc-list-left {
   list-style: none;
-  font-size: 17px;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .desc-list-right {
-  padding-left: 10px;
+  padding-left: 5rem;
   list-style: none;
-  font-size: 15px;
-  padding-top: 4px;
+  font-size: 2rem;
 }
 
 .close-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.6rem;
+  cursor: pointer;
 }
 .desc {
-  font-size: 15px;
-  padding-top: 10px;
-  padding-left: 15px;
+  font-size: 1.7rem;
+  padding-bottom: 1rem;
 }
 
-.name-time:before {
+/* .name-time:before {
   content: "• ";
-}
+} */
 
 .name-time {
-  padding-top: 10px;
-  padding-left: 10px;
-  font-size: 15px;
-  display: flex;
+  font-size: 1.5rem;
+  padding: 1rem 0 3rem 5rem;
+}
+
+.desc-list-left li,
+.desc-list-right li {
+  padding: 0.5rem 0;
 }

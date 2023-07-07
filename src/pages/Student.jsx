@@ -22,6 +22,7 @@ const Student = () => {
   const [rejected, setRejected] = useState(true);
   const [done, setDone] = useState(true);
   const [closed, setClosed] = useState(true);
+  const [order, setOrder] = useState("oldtonew");
 
   const usenavigate = useNavigate();
 
@@ -110,7 +111,7 @@ const Student = () => {
       for (let i of complaints) {
         if (cat.includes(i.category) && stat.includes(i.state)) newList.push(i);
       }
-      console.log(2, newList);
+      // console.log(2, newList);
       setFilteredComplaints(newList);
     }
   }, [
@@ -125,6 +126,23 @@ const Student = () => {
     done,
     closed,
   ]);
+
+  const handleSort = () => {
+    if (loading) {
+      if (order === "newtoold") {
+        // console.log(new Date(filteredComplaints[0].created));
+        filteredComplaints.sort(
+          (a, b) => new Date(a.created) - new Date(b.created)
+        );
+      } else {
+        filteredComplaints.sort(
+          (a, b) => new Date(b.created) - new Date(a.created)
+        );
+      }
+    }
+  };
+
+  useEffect(() => {}, [order]);
 
   return (
     <div>
@@ -284,21 +302,23 @@ const Student = () => {
                   alignItems: "center",
                 }}
               >
-                <Link to={"/newComplaint"}>
-                  <button
-                    style={{
-                      margin: "0.8rem 0.5rem 0.3rem 0.5rem",
-                      padding: "0.8rem 1.6rem",
-                      backgroundColor: "#17c17b",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img src={clogo} alt="Logo" className="clogo" />
-                    <p>New Complaint</p>
-                  </button>
-                </Link>
+                <div style={{ margin: "0.8rem 0.5rem 0.3rem 0.5rem" }}>
+                  <Link to={"/newComplaint"}>
+                    <button
+                      style={{
+                        padding: "0.8rem 1.6rem",
+                        backgroundColor: "#17c17b",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      <img src={clogo} alt="Logo" className="clogo" />
+                      New Complaint
+                    </button>
+                  </Link>
+                </div>
 
                 <button
                   style={{
@@ -308,10 +328,20 @@ const Student = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    fontSize: "1.5rem",
                   }}
                 >
                   <img src={rlogo} alt="Logo" className="rlogo" />
-                  <p>Recent</p>
+                  &nbsp;Sort by&nbsp;
+                  <select
+                    style={{ backgroundColor: "#425FC6", color: "white" }}
+                    value={order}
+                    onClick={handleSort}
+                    onChange={(e) => setOrder(e.target.value)}
+                  >
+                    <option value="oldtonew">Old to New</option>
+                    <option value="newtoold">New to Old</option>
+                  </select>
                 </button>
               </div>
             </div>

@@ -20,8 +20,12 @@ export default function Complaint({ objectProp }) {
   const month = dateTime.getMonth() + 1;
   let day = dateTime.getDate();
   if (day < 10) day = "0" + String(day);
-  const hours = dateTime.getHours();
-  const minutes = dateTime.getMinutes();
+
+  const timeString = dateTime.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
 
   let backgroundColor = "#d9d9d9";
   if (state === "accepted") backgroundColor = "#425FC6";
@@ -38,8 +42,7 @@ export default function Complaint({ objectProp }) {
           day={day}
           year={year}
           month={month}
-          hours={hours}
-          minutes={minutes}
+          timeString={timeString}
         />
       )}
       <div className="com-component" onClick={handleOpenPopup}>
@@ -56,7 +59,7 @@ export default function Complaint({ objectProp }) {
         </div>
         <div className="comp-right">
           <div className="dnt">
-            {hours}:{minutes} &nbsp;&nbsp; {day}-{month}-{year}
+            {timeString} &nbsp;&nbsp; {day}-{month}-{year}
           </div>
           <div className="comp-name">{student && student.name}</div>
         </div>
