@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# QuickFix
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+QuickFix is a user-friendly web-based service designed to digitize and streamline the registration of infrastructure-related complaints within schools and universities. The system allows students to express their complaints regarding infrastructure issues such as electrical, plumbing, and carpentry, and it supports rapid resolution by the college administration.
 
-## Available Scripts
+## Link
 
-In the project directory, you can run:
+[QuickFix](https://statuesque-basbousa-96f8e3.netlify.app/)
 
-### `npm start`
+Login Credentials
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+For admin:
+**email** : bcs_2021199@iiitm.ac.in  
+**password** : 123456
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For admin:
+**email** : bcs_2021023@iiitm.ac.in  
+**password** : 12345678
 
-### `npm test`
+Please note that the backend is hosted on the free tier of Render. So after periods of inactivity, the server may shut down.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When you make a new request after such a period of inactivity, the server needs to restart, which might take around 10-15 seconds. However, once the server is up and running again, subsequent requests will receive instant responses.
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Client:** React
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Server:** FastAPI , SQLAlchemy
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Database:** PostgreSQL
 
-### `npm run eject`
+**Security:** OAUTH2, JWT, Bcrypt
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Hosting:** Netlify, Render, Neon
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- User-friendly web interface for students to register complaints.
+- Admin panel for administrators to review, accept, and close complaints.
+- Categorization of complaints into Carpentry, Plumbing, and Electrical.
+- Seamless communication between complainants and administrators.
+- Real-time tracking and monitoring of complaint status.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## State Of complaints
 
-## Learn More
+QuickFix supports five states of complaints
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **New**: Complaints that are newly registered by students and not yet reviewed by the admin.
+- **Accepted**: Complaints that have been reviewed and accepted by the admin for resolution.
+- **Rejected**: Complaints that have been reviewed by the admin but are not considered valid or within the platform's scope.
+- **Done**: Complaints that have been marked as "Done" by the student, indicating they believe the issue has been resolved.
+- **Closed**: Complaints that have been verified and resolved by the admin, signifying the successful resolution of the issue.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![States](Screenshots/0.png)
 
-### Code Splitting
+## Process Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**1. Student Registration**
 
-### Analyzing the Bundle Size
+- Students can sign up using their institute email address, name, hostel, room number, and password.
+- A verification email will be sent to the student's institute email for verification.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**2. Login Process (Student / Admin)**
 
-### Making a Progressive Web App
+- Students and admins can log in using their institute email and password.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**3. Complaint Registration by Student**
 
-### Advanced Configuration
+- Students can register new complaints, selecting the complaint type (Personal or Common) and category (Carpentry, Plumbing, or Electrical).
+- They can provide a title, description, and optionally, upload a photo related to the complaint.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**4. Deletion of Complaint by the Student**
 
-### Deployment
+- Students can delete their registered complaints if needed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**5. Examination of Complaint by the Admin**
 
-### `npm run build` fails to minify
+- Admins can view common and individual complaints with essential details.
+- They can accept or reject complaints based on their validity.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**6. Marking the Complaint Done by the Student**
+
+- Students can mark their accepted complaints as "Done" once they believe the issue is resolved.
+
+**7. Closing the Complaint by the Admin**
+
+- Admins can close the complaint after verification and resolution
+
+## Screenshots
+
+- Home
+  ![Home](Screenshots/1.png)
+
+- Login
+  ![Login](Screenshots/2.png)
+
+- Signup
+  ![Signup](Screenshots/3.png)
+
+- Dashboard
+  ![Dashboard](Screenshots/4.png)
+
+- Complaint Popup (Student)
+  ![Home](Screenshots/5.png)
+
+- Complaint Popup (Admin)
+  ![Complaint Popup (Admin)](Screenshots/9.png)
+
+- Profile (Student)
+  ![Home](Screenshots/7.png)
