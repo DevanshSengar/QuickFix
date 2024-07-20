@@ -1,6 +1,6 @@
 # QuickFix
 
-QuickFix is a user-friendly web-based service designed to digitize and streamline the registration of infrastructure-related complaints within schools and universities. The system allows students to express their complaints regarding infrastructure issues such as electrical, plumbing, and carpentry, and it supports rapid resolution by the college administration.
+QuickFix is a user-friendly web-based service designed to digitize and streamline the resolution of infrastructure-related complaints within hostels associated with schools and universities. The system allows students to express their complaints regarding infrastructure issues such as electrical, plumbing, and carpentry, and it supports rapid resolution by the hostel administration.
 
 ## Link
 
